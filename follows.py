@@ -9,7 +9,7 @@ def get():
     try:
         conn = mariadb.connect(user = dbcreds.username , port = dbcreds.port , host = dbcreds.host , password = dbcreds.password , database = dbcreds.database)
         cursor = conn.cursor()
-        cursor.execute("SELECT  users.id, users.email, users.username, users.bio, users.birthday from follow Inner join users on users.id = follow.user2_id where follow.user1_id = ?"[userId])
+        cursor.execute("SELECT  users.id, users.email, users.username, users.bio, users.birthday from follow Inner join users on users.id = follow.user2_id where follow.user1_id = ?",[userId])
         users = cursor.fetchall()
     except Exception as ex :
         print("exception is : " + ex)    

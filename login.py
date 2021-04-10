@@ -11,7 +11,7 @@ def post():
     try:
         conn = mariadb.connect(user = dbcreds.username , port = dbcreds.port , host = dbcreds.host , password = dbcreds.password , database = dbcreds.database)
         cursor = conn.cursor()
-        cursor.execute("SELECT id , username , email , password , bio , birthday FROM users WHERE email = ?" [email])
+        cursor.execute("SELECT id , username , email , password , bio , birthday FROM users WHERE email = ?", [email])
         user_detail = cursor.fetchall()[0][3]
         if(user_detail == password):
             token = secrets.token_urlsafe(24)

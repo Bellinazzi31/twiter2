@@ -50,7 +50,7 @@ def post():
         cursor = conn.cursor()
         cursor.execute("SELECT user_id from user_session where login_token = ?",[token])
         user_id = cursor.fetchall()[0][0]
-        cursor.execute("SELECT username from users where id = ?"[user_id])
+        cursor.execute("SELECT username from users where id = ?",[user_id])
         username = cursor.fetchall()[0][0]
         cursor.execute("INSERT INTO tweets (user_id,content) VALUES (?,?)",[user_id,content])
         conn.commit()
@@ -87,7 +87,7 @@ def patch():
         cursor = conn.cursor()
         cursor.execute("SELECT user_id from user_session where login_token = ?",[token])
         user_id = cursor.fetchall()[0][0]
-        cursor.execute("UPDATE tweets SET content = ? WHERE id = ? and user_id = ?"[content, tweet_id,user_id])
+        cursor.execute("UPDATE tweets SET content = ? WHERE id = ? and user_id = ?",[content, tweet_id,user_id])
         conn.commit()
         affected_rows = cursor.rowcount
     except Exception as ex:
@@ -117,7 +117,7 @@ def delete():
         cursor = conn.cursor()
         cursor.execute("SELECT user_id from user_session where login_token = ?",[token])
         user_id = cursor.fetchall()[0][0]
-        cursor.execute("DELETE from tweets WHERE id = ? and user_id = ?"[tweet_id,user_id])
+        cursor.execute("DELETE from tweets WHERE id = ? and user_id = ?",[tweet_id,user_id])
         conn.commit()
         affected_rows = cursor.rowcount
     except Exception as ex:

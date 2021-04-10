@@ -107,7 +107,7 @@ def patch_user():
             cursor.execute("UPDATE users SET birthday = ?",[birthday,userId])               
         conn.commir()
         affected_rows = cursor.rowcount
-        cursor.execute("SELECT id, email, username, bio, birthday from users WHERE id =?"[userId])
+        cursor.execute("SELECT id, email, username, bio, birthday from users WHERE id =?",[userId])
         user = cursor.fetchall()[0]
     except Exception as ex :
         print("exception is :" + ex )  
@@ -141,7 +141,7 @@ def delete_user():
         user_password = cursor.fetchall()[0][0]
         if(password == user_password):
             cursor.execute("DELETE FROM users where id = ?", [userId])
-            conn.commir()
+            conn.commit()
             affected_rows = cursor.rowcount
     except Exception as ex :
         print("exception is :" + ex )  
